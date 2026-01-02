@@ -51,6 +51,17 @@ requests
 colorama
 
 📜 Usage
+
+✅ Usage
+
+Only show subdomains pointing to a specific CNAME:
+
+python subdomain-c-name-detect.py -f subdomains.txt --cname-filter netlify.app
+
+Scan a single domain:
+
+python subdomain-c-name-detect.py -d test.example.com --cname-filter netlify.app
+
 Scan a single domain:
 python3 cnamercon_pro.py -d example.com
 
