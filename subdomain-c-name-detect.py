@@ -87,9 +87,32 @@ FINGERPRINTS = {
     "WordPress": ["wordpress.com"],
     "Worksites": ["worksites.net"],
     "Wufoo": ["wufoo.com"],
-    "Zendesk": ["zendesk.com"]
+    "Zendesk": ["zendesk.com"],
+    # ---------------- AZURE ---------------- #
+    "Microsoft Azure": [
+        "azure-api.net",
+        "azure-mobile.net",
+        "azurecontainer.io",
+        "azurecr.io",
+        "azuredatalakestore.net",
+        "azureedge.net",
+        "azurefd.net",
+        "azurehdinsight.net",
+        "azurewebsites.net",
+        "azurewebsites.windows.net",
+        "blob.core.windows.net",
+        "cloudapp.azure.com",
+        "database.windows.net",
+        "redis.cache.windows.net",
+        "search.windows.net",
+        "servicebus.windows.net",
+        "trafficmanager.net",
+        "visualstudio.com",
+        "web.core.windows.net"
+    ]
 }
 
+# ---------------- ERROR SIGNATURES ---------------- #
 ERROR_SIGNATURES = {
     "Netlify": ["not found", "no such site", "site not found"],
     "GitHub Pages": ["there isn't a github pages site here", "repository not found"],
@@ -122,7 +145,17 @@ ERROR_SIGNATURES = {
     "Uberflip": ["the url you've accessed does not provide a hub"],
     "UptimeRobot": ["page not found"],
     "WordPress": ["do you want to register .*?\\.wordpress\\.com"],
-    "Worksites": ["hello! sorry, but the website you’re looking for doesn’t exist"]
+    "Worksites": ["hello! sorry, but the website you’re looking for doesn’t exist"],
+    # ---------------- AZURE ERRORS ---------------- #
+    "Microsoft Azure": [
+        "the resource you are looking for has been removed",
+        "404 web site not found",
+        "this azure web app has been stopped",
+        "no such host is known",
+        "the specified resource does not exist",
+        "resource not found",
+        "error 404"
+    ]
 }
 
 # ---------------- UI ---------------- #
@@ -184,6 +217,9 @@ def resolve_domain(domain):
                 takeover = "UNREACHABLE"
             elif status in [401, 403]:
                 takeover = "NO"
+            # ---------------- AZURE SPECIAL HANDLING ---------------- #
+            elif service == "Microsoft Azure" and status in [404, 400] and check_error_signature(service, body):
+                takeover = "LIKELY"
             elif check_error_signature(service, body):
                 takeover = "LIKELY"
             else:
@@ -240,7 +276,7 @@ def print_result(domain, cname, service, status, takeover, filter_status, filter
     print(
         f"{sev}[+] {domain:<35} → "
         f"{Fore.CYAN}{cname:<45} | "
-        f"{service:<12} | "
+        f"{service:<20} | "
         f"HTTP {color_status(status)} | {label}"
     )
 
