@@ -213,9 +213,11 @@ def color_status(code):
     return Fore.RED + str(code)
 
 def print_result(domain, cname, service, status, takeover, filter_status, filter_cname):
+    # Filter by HTTP status
     if filter_status and status != filter_status:
         return
-    if filter_cname and (cname is None or filter_cname not in cname):
+    # Filter by CNAME keyword
+    if filter_cname and (cname is None or filter_cname.lower() not in cname.lower()):
         return
 
     if cname is None:
@@ -256,7 +258,7 @@ def main():
     parser.add_argument("-t", "--threads", type=int, default=10)
     parser.add_argument("-o", "--output", help="Output prefix")
     parser.add_argument("--status", type=int, help="Filter by HTTP status")
-    parser.add_argument("--cname-filter", help="Only show domains pointing to this CNAME")
+    parser.add_argument("--cname-filter", help="Only show domains pointing to this CNAME keyword (e.g., netlify)")
 
     args = parser.parse_args()
     banner()
