@@ -1,26 +1,33 @@
-CNAMERecon Pro 🛡️
+🛡️
 
 Advanced Subdomain CNAME Scanner & Takeover Verifier
 
-CNAMERecon Pro is a professional tool for bug bounty hunters, security researchers, and pentesters. It scans a domain and its subdomains for CNAME records, detects services, verifies potential subdomain takeovers using error response signatures, and provides colorful, detailed outputs.
+CNAMERecon Pro is a professional bug bounty and pentesting tool for scanning domains and subdomains, detecting CNAME records, verifying potential subdomain takeovers, and providing colorful, actionable output.
+
+🖌️ Screenshot Preview
+
+<img width="1777" height="734" alt="image" src="https://github.com/user-attachments/assets/833c54ed-f732-4a1a-9c39-e768ddffad73" />
+
 
 🧠 Features
 
-✅ Scan a single domain or multiple subdomains from a file
+✅ Scan single or multiple domains from a file
 
-✅ Resolve CNAME records and detect hosting services (AWS, Netlify, GitHub Pages, Azure, Heroku, Fastly, Google Cloud)
+✅ Resolve CNAME records and detect hosting services:
+
+AWS, Netlify (+ netlifyglobalcdn.com), GitHub Pages, Azure, Heroku, Fastly, Google Cloud
 
 ✅ HTTP request verification with status codes
 
-✅ Detect potential subdomain takeovers with real error response fingerprints
+✅ Detect subdomain takeovers using error response fingerprints
 
-✅ Filter results based on HTTP status code (--status 404)
+✅ Filter output by HTTP status (--status 404)
 
 ✅ Export results to JSON and CSV
 
-✅ Colorful terminal output with severity and takeover status
+✅ Colorful terminal output for easy triage
 
-✅ Clean Ctrl+C exit with thread-safe shutdown
+✅ Thread-safe shutdown and clean Ctrl+C exit
 
 💻 Installation
 
@@ -47,13 +54,13 @@ colorama
 Scan a single domain:
 python3 cnamercon_pro.py -d example.com
 
-Scan multiple subdomains from a file:
+Scan multiple subdomains:
 python3 cnamercon_pro.py -f subdomains.txt
 
-Filter results by HTTP status code:
+Filter results by HTTP status:
 python3 cnamercon_pro.py -f subdomains.txt --status 404
 
-Save results to JSON & CSV:
+Save output to JSON & CSV:
 python3 cnamercon_pro.py -f subdomains.txt -o output/results
 
 Multi-threading:
@@ -69,11 +76,11 @@ Red = Likely takeover
 
 Green = Safe or possible
 
-HTTP status code is shown in color: 2xx green, 3xx cyan, 4xx yellow, 5xx red
+HTTP status code color-coded: 2xx green, 3xx cyan, 4xx yellow, 5xx red
 
 ⚙️ Takeover Detection
 
-CNAMERecon Pro includes detection for:
+CNAMERecon Pro uses real error signatures for detection:
 
 Service	Fingerprints
 AWS	amazonaws.com, cloudfront.net
@@ -83,16 +90,13 @@ Azure	azurewebsites.net
 Heroku	herokuapp.com
 Fastly	fastly.net
 Google Cloud	storage.googleapis.com
-
-Error signatures are used to detect if the service is unclaimed, increasing accuracy.
-
 🚀 Advanced Features
 
-Ctrl+C clean termination with thread-safe shutdown
+Ctrl+C clean termination
 
-Filter by HTTP status for targeted results
+Filter results by HTTP status
 
-Export professional reports (JSON & CSV)
+Export professional JSON/CSV reports
 
 Color-coded terminal output for easy review
 
@@ -102,11 +106,10 @@ Automatic screenshot capture of takeover pages
 
 --only-takeover flag for concise output
 
-Markdown report generation for HackerOne/Bugcrowd submissions
+Markdown report generator for HackerOne/Bugcrowd
 
-Integration with subfinder or amass for automated subdomain discovery
+Integration with subfinder / amass
 
 📝 License
 
 MIT License © 2026
-You are free to use, modify, and distribute this tool.
